@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="pl">
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta charset="UTF-8">
+    <style>
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  height:100%;
+  width:100%;
+  font-family: sans-serif;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  
+  background: radial-gradient(ellipse at top, #e66465, transparent),
+  radial-gradient(ellipse at bottom, #4d9f0c, transparent);
+}
+
+.wideButton {
+  display: block;
+  margin: auto;
+  width: 200px;
+  height:auto;
+  border-radius: 10px;
+  border: none;
+  font-family: inherit;
+  color: #333333;
+  background-color: #e6e6e6;
+  font-size: large;
+  font-weight: 700;
+  transition: background-color 0.3s;
+  padding:5px;
+}
+
+.wideButton:hover {
+  cursor:pointer;
+  background-color: #d9d9d9;
+}
+
+#modal, #dialogBox, #dialogShowBox {
+  position:fixed;
+  margin: 0 auto;
+  top:30%;
+  text-align: center;
+  border-radius: 10px;
+  border: none !important;
+  box-shadow: rgba(50, 50, 93, 0.25) 0px 13px 27px -5px, rgba(0, 0, 0, 0.3) 0px 8px 16px -8px;
+  background:white;
+}
+
+.content{
+  display:block;
+  flex-direction:column;
+}
+
+dialog::backdrop {
+	background-color: rgba(0, 0, 0, 0.7);
+}
+    </style>
+  </head>
+  <body>
+<button id="modalBtn" class="wideButton">Otwórz Modal showModal()</button>
+<button id="dialogShowBtn" class="wideButton">Otwórz Dialog show()</button>
+<button id="dialogBtn" class="wideButton">Otwórz Dialog open attribute</button>
+
+<dialog id="modal">
+  <div class="content">
+    <p>Tekst wewnątrz Modala</p>
+    <p>Tekst w tle jest niedostępny dla użytkownika.</p>
+    <button id="closeModal" class="wideButton">Close</button>
+  </div>
+</dialog>
+
+<dialog id="dialogBox">
+  <div class="dialog-content">
+    <p>Tekst wewnątrz Dialog</p>
+    <p>Tekst w tle jest nadal dostępny dla użytkownika.</p>
+    <button id="closeDialog" class="wideButton">Close</button>
+  </div>
+</dialog>
+
+<dialog id="dialogShowBox">
+  <div class="content">
+    <p>Tekst wewnątrz Dialog</p>
+    <p>Tekst w tle jest dostępny dla użytkownika.</p>
+    <button id="closeDialogShow" class="wideButton">Close</button>
+  </div>
+</dialog>
+
+<script>
+
+var modalBtn = document.getElementById("modalBtn");
+
+var closeModalBtn = document.getElementById("closeModal");
+
+var dialogBtn = document.getElementById("dialogBtn");
+
+var closeDialogBtn = document.getElementById("closeDialog");
+
+var dialogShowBtn = document.getElementById("dialogShowBtn");
+
+var closeDialogShowBtn = document.getElementById("closeDialogShow");
+
+//obsługa Modal Box showModal()
+const openModal = () => {
+  const modal = document.getElementById("modal");
+  modal.showModal();
+};
+
+const closeModal = () => {
+  const modal = document.getElementById("modal");
+  modal.close();
+};
+
+//obsługa dialog otwieranego funkcja show()
+const openDialogShow = () => {
+  const dialogShow = document.getElementById("dialogShowBox");
+  dialogShow.show();
+}
+
+const closeDialogShow = () => {
+  const dialogShow = document.getElementById("dialogShowBox");
+  dialogShow.close();
+}
+
+//obsluga dialog otwieranego/zamykanego atrybutem
+const toggleDialog = () => {
+  const dialog = document.getElementById("dialogBox");
+  const open = dialog.getAttribute("open");
+  if (open) {
+    dialog.removeAttribute("open");
+  } else {
+    dialog.setAttribute("open","true");
+  }
+}
+
+const closeDialog = () => {
+  const dialog = document.getElementById("dialogBox");
+  dialog.removeAttribute("open");
+}
+
+modalBtn.addEventListener("click",openModal);
+
+closeModalBtn.addEventListener("click",closeModal);
+
+dialogBtn.addEventListener("click",toggleDialog);
+
+closeDialogBtn.addEventListener("click",closeDialog);
+
+dialogShowBtn.addEventListener("click",openDialogShow);
+
+closeDialogShowBtn.addEventListener("click",closeDialogShow);
+
+</script>
+</body>
+</html>
